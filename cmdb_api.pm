@@ -2371,7 +2371,7 @@ sub doSystemGET(){
 	}
 	$field_sql.="," if $field_sql;
 	$field_sql.= " ch.count as changes ";
-	$join_sql.=" (SELECT entity_key,count(id) as count from change_queue group by entity_key) as ch on d.fqdn=ch.entity_key";
+	$join_sql.=" left join (SELECT entity_key,count(id) as count from change_queue group by entity_key) as ch on d.fqdn=ch.entity_key";
 
 	#$sql="select $field_sql from device d $join_sql where $where_sql group by d.fqdn";
 	$sql="select $field_sql from device d $join_sql ";
